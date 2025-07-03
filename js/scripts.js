@@ -21,23 +21,24 @@ const addTodo = () => {
     name,
     dueDate,
   });
+  renderTodoList()
   console.log(todoList);
 };
 
 addButton.addEventListener("click", addTodo);
-
-let todoListHTML = '';
-const renderTodoList = () => {
+renderTodoList()
+function renderTodoList(){
+    let todoListHTML = '';
   for (let i = 0; i < todoList.length; i++) {
-    const todoObject = todoList[i];
+    let todoObject = todoList[i];
     const { name, dueDate } = todoObject;
     const html = `
-    <div>${name}</div>
-    <div>${dueDate}</div>
+    <p>${name} ${dueDate}
+    <button>Delete</button></p>
+    
     `
     todoListHTML += html
   }
+  displayTodo.innerHTML = todoListHTML
 console.log(todoListHTML)
-};
-
-renderTodoList();
+}
