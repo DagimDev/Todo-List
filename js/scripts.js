@@ -1,6 +1,7 @@
 const textInput = document.querySelector("#js-text-input-value");
 const dateInput = document.querySelector("#js-date-input-value");
 const addButton = document.querySelector(".js-add-todo-button");
+const displayTodo = document.querySelector(".js-display-todo-list");
 
 let todoList = [
   {
@@ -14,10 +15,29 @@ let todoList = [
 ];
 
 const addTodo = () => {
-  const textInputValue = textInput.value;
-  const dateInputValue = dateInput.value;
-  todoList.push({ name: textInputValue, dueDate: dateInputValue });
+  const name = textInput.value;
+  const dueDate = dateInput.value;
+  todoList.push({
+    name,
+    dueDate,
+  });
   console.log(todoList);
 };
 
 addButton.addEventListener("click", addTodo);
+
+let todoListHTML = '';
+const renderTodoList = () => {
+  for (let i = 0; i < todoList.length; i++) {
+    const todoObject = todoList[i];
+    const { name, dueDate } = todoObject;
+    const html = `
+    <div>${name}</div>
+    <div>${dueDate}</div>
+    `
+    todoListHTML += html
+  }
+console.log(todoListHTML)
+};
+
+renderTodoList();
