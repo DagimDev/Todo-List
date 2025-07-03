@@ -21,24 +21,36 @@ const addTodo = () => {
     name,
     dueDate,
   });
-  renderTodoList()
+  renderTodoList();
   console.log(todoList);
 };
 
 addButton.addEventListener("click", addTodo);
-renderTodoList()
-function renderTodoList(){
-    let todoListHTML = '';
+renderTodoList();
+function renderTodoList() {
+  let todoListHTML = "";
   for (let i = 0; i < todoList.length; i++) {
     let todoObject = todoList[i];
     const { name, dueDate } = todoObject;
     const html = `
     <p>${name} ${dueDate}
-    <button>Delete</button></p>
+    <button class="js-delete-todo-button">Delete</button></p>
     
-    `
-    todoListHTML += html
+    `;
+    todoListHTML += html;
   }
-  displayTodo.innerHTML = todoListHTML
-console.log(todoListHTML)
+  displayTodo.innerHTML = todoListHTML;
+  console.log(todoListHTML);
+
+
+document
+  .querySelectorAll(".js-delete-todo-button")
+  .forEach((deleteButton, index) => {
+    deleteButton.addEventListener("click", () => {
+      todoList.splice(index, 1);
+      renderTodoList()
+    });
+  });
 }
+
+
