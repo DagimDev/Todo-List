@@ -3,7 +3,7 @@ const dateInput = document.querySelector("#js-date-input-value");
 const addButton = document.querySelector(".js-add-todo-button");
 const displayTodo = document.querySelector(".js-display-todo-list");
 
-let todoList = [
+let todoList = JSON.parse(localStorage.getItem("todoList")) || [
   {
     name: "Make Dinner",
     dueDate: "2-22-2222",
@@ -22,7 +22,6 @@ const addTodo = () => {
     dueDate,
   });
   renderTodoList();
-  console.log(todoList);
 };
 
 addButton.addEventListener("click", addTodo);
@@ -40,7 +39,7 @@ function renderTodoList() {
     todoListHTML += html;
   }
   displayTodo.innerHTML = todoListHTML;
-  console.log(todoListHTML);
+  saveToStorage()
 
   document
     .querySelectorAll(".js-delete-todo-button")
@@ -48,6 +47,13 @@ function renderTodoList() {
       deleteButton.addEventListener("click", () => {
         todoList.splice(index, 1);
         renderTodoList();
+        localStorage.removeItem("todoList")
+        saveToStorage()
       });
     });
+}
+
+
+function saveToStorage() {
+  localStorage.setItem("todoList", JSON.stringify(todoList))
 }
